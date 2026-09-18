@@ -161,8 +161,9 @@ export const getMyJob = createServerFn({ method: "GET" })
       .eq("company_id", companyId)
       .maybeSingle();
     if (!row) throw new Error("Job not found");
-    const r = row as unknown as JobRow & { job_skills: { skill_id: number }[] };
-    return { ...toJobDto(r), skillIds: r.job_skills.map((s) => s.skill_id) };
+    const r = row as unknown as JobRow;
+    const skillIds = ((row as unknown as { job_skills: { skill_id?: number }[] }).job_skills ?? []).map((s) => s.skill_id).filter((n): n is number => typeof n === "number");
+    return { ...toJobDto(r), skillIds };
   });
 
 export const createJob = createServerFn({ method: "POST" })

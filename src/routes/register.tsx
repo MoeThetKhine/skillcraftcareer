@@ -33,8 +33,14 @@ function RegisterPage() {
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (f.password.length < 8) return toast.error("Password must be at least 8 characters.");
-    if (role === "employer" && f.companyName.trim().length < 2) return toast.error("Company name is required for employers.");
+    if (f.password.length < 8) {
+      toast.error("Password must be at least 8 characters.");
+      return;
+    }
+    if (role === "employer" && f.companyName.trim().length < 2) {
+      toast.error("Company name is required for employers.");
+      return;
+    }
     setBusy(true);
     try {
       const me = await register({
@@ -42,10 +48,16 @@ function RegisterPage() {
         email: f.email.trim(),
         password: f.password,
         role,
-        company:
-          role === "employer"
-            ? { name: f.companyName.trim(), description: f.companyDescription.trim() || undefined, website: f.companyWebsite.trim() || undefined, location: f.companyLocation.trim() || undefined }
-            : undefined,
+        ...(role === "employer"
+          ? {
+              company: {
+                name: f.companyName.trim(),
+                ...(f.companyDescription.trim() ? { description: f.companyDescription.trim() } : {}),
+                ...(f.companyWebsite.trim() ? { website: f.companyWebsite.trim() } : {}),
+                ...(f.companyLocation.trim() ? { location: f.companyLocation.trim() } : {}),
+              },
+            }
+          : {}),
       });
       toast.success("Account created — welcome to SkillCraft!");
       navigate({ to: roleHome(me.role) });

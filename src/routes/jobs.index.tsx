@@ -38,7 +38,7 @@ export const Route = createFileRoute("/jobs/")({
 
 function JobsPage() {
   const params = Route.useSearch();
-  const navigate = useNavigate({ from: "/jobs" });
+  const navigate = useNavigate({ from: "/jobs/" });
   const [form, setForm] = useState({ keyword: params.keyword ?? "", location: params.location ?? "", skill: params.skill ?? "", experience: params.experience ?? "", salaryMin: params.salaryMin?.toString() ?? "" });
   const { data, isLoading, error } = useQuery(jobsQuery(params));
 
@@ -56,7 +56,7 @@ function JobsPage() {
     });
   };
 
-  const setType = (v: string) => navigate({ search: (prev) => ({ ...prev, jobType: v === "all" ? undefined : v }) });
+  const setType = (v: string) => navigate({ search: { ...params, jobType: v === "all" ? undefined : v } });
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">

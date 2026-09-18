@@ -74,7 +74,7 @@ function SeekerDashboard() {
   );
 }
 
-function Row({ label, value }: { label: string; value?: string | null }) {
+function Row({ label, value }: { label: string; value?: string | null | undefined }) {
   return (
     <div>
       <dt className="text-xs uppercase tracking-wide text-muted-foreground">{label}</dt>
