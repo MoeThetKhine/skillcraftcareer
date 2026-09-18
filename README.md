@@ -12,8 +12,6 @@ SkillCraft connects:
 
 The system must use a real backend architecture and a relational SQL Server database. Do **not** build this as a static frontend-only project.
 
----
-
 # 1. Project Concept
 
 SkillCraft is an AI-powered job discovery and recruitment platform.
