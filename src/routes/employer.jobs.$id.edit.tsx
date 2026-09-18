@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { getMyJob, updateJob } from "@/lib/api/jobs.functions";
 import { JobForm, toJobInput, type JobFormValues } from "@/components/employer/JobForm";
 import { ErrorState, LoadingState, PageHeader } from "@/components/shared";
-import { friendly } from "./employer.jobs.create";
+import { friendlyError as friendly } from "@/lib/utils";
 
 export const Route = createFileRoute("/employer/jobs/$id/edit")({
   head: () => ({ meta: [{ title: "Edit Job — SkillCraft" }] }),

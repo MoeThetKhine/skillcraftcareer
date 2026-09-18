@@ -15,10 +15,16 @@ import { Route as EmployerRouteImport } from './routes/employer'
 import { Route as JobSeekerRouteImport } from './routes/job-seeker'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as RegisterRouteImport } from './routes/register'
+import { Route as EmployerCompanyRouteImport } from './routes/employer.company'
+import { Route as EmployerDashboardRouteImport } from './routes/employer.dashboard'
 import { Route as JobSeekerApplicationsRouteImport } from './routes/job-seeker.applications'
 import { Route as JobSeekerDashboardRouteImport } from './routes/job-seeker.dashboard'
 import { Route as JobsIndexRouteImport } from './routes/jobs.index'
 import { Route as JobsIdRouteImport } from './routes/jobs.$id'
+import { Route as EmployerJobsIndexRouteImport } from './routes/employer.jobs.index'
+import { Route as EmployerJobsCreateRouteImport } from './routes/employer.jobs.create'
+import { Route as EmployerJobsIdApplicantsRouteImport } from './routes/employer.jobs.$id.applicants'
+import { Route as EmployerJobsIdEditRouteImport } from './routes/employer.jobs.$id.edit'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -50,6 +56,16 @@ const RegisterRoute = RegisterRouteImport.update({
   path: '/register',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EmployerCompanyRoute = EmployerCompanyRouteImport.update({
+  id: '/company',
+  path: '/company',
+  getParentRoute: () => EmployerRoute,
+} as any)
+const EmployerDashboardRoute = EmployerDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => EmployerRoute,
+} as any)
 const JobSeekerApplicationsRoute = JobSeekerApplicationsRouteImport.update({
   id: '/applications',
   path: '/applications',
@@ -70,43 +86,82 @@ const JobsIdRoute = JobsIdRouteImport.update({
   path: '/jobs/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EmployerJobsIndexRoute = EmployerJobsIndexRouteImport.update({
+  id: '/jobs/',
+  path: '/jobs/',
+  getParentRoute: () => EmployerRoute,
+} as any)
+const EmployerJobsCreateRoute = EmployerJobsCreateRouteImport.update({
+  id: '/jobs/create',
+  path: '/jobs/create',
+  getParentRoute: () => EmployerRoute,
+} as any)
+const EmployerJobsIdApplicantsRoute =
+  EmployerJobsIdApplicantsRouteImport.update({
+    id: '/jobs/$id/applicants',
+    path: '/jobs/$id/applicants',
+    getParentRoute: () => EmployerRoute,
+  } as any)
+const EmployerJobsIdEditRoute = EmployerJobsIdEditRouteImport.update({
+  id: '/jobs/$id/edit',
+  path: '/jobs/$id/edit',
+  getParentRoute: () => EmployerRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
-  '/employer': typeof EmployerRoute
+  '/employer': typeof EmployerRouteWithChildren
   '/job-seeker': typeof JobSeekerRouteWithChildren
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/employer/company': typeof EmployerCompanyRoute
+  '/employer/dashboard': typeof EmployerDashboardRoute
   '/job-seeker/applications': typeof JobSeekerApplicationsRoute
   '/job-seeker/dashboard': typeof JobSeekerDashboardRoute
   '/jobs/$id': typeof JobsIdRoute
   '/jobs/': typeof JobsIndexRoute
+  '/employer/jobs/create': typeof EmployerJobsCreateRoute
+  '/employer/jobs/': typeof EmployerJobsIndexRoute
+  '/employer/jobs/$id/applicants': typeof EmployerJobsIdApplicantsRoute
+  '/employer/jobs/$id/edit': typeof EmployerJobsIdEditRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
-  '/employer': typeof EmployerRoute
+  '/employer': typeof EmployerRouteWithChildren
   '/job-seeker': typeof JobSeekerRouteWithChildren
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/employer/company': typeof EmployerCompanyRoute
+  '/employer/dashboard': typeof EmployerDashboardRoute
   '/job-seeker/applications': typeof JobSeekerApplicationsRoute
   '/job-seeker/dashboard': typeof JobSeekerDashboardRoute
   '/jobs/$id': typeof JobsIdRoute
   '/jobs': typeof JobsIndexRoute
+  '/employer/jobs/create': typeof EmployerJobsCreateRoute
+  '/employer/jobs': typeof EmployerJobsIndexRoute
+  '/employer/jobs/$id/applicants': typeof EmployerJobsIdApplicantsRoute
+  '/employer/jobs/$id/edit': typeof EmployerJobsIdEditRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
-  '/employer': typeof EmployerRoute
+  '/employer': typeof EmployerRouteWithChildren
   '/job-seeker': typeof JobSeekerRouteWithChildren
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/employer/company': typeof EmployerCompanyRoute
+  '/employer/dashboard': typeof EmployerDashboardRoute
   '/job-seeker/applications': typeof JobSeekerApplicationsRoute
   '/job-seeker/dashboard': typeof JobSeekerDashboardRoute
   '/jobs/$id': typeof JobsIdRoute
   '/jobs/': typeof JobsIndexRoute
+  '/employer/jobs/create': typeof EmployerJobsCreateRoute
+  '/employer/jobs/': typeof EmployerJobsIndexRoute
+  '/employer/jobs/$id/applicants': typeof EmployerJobsIdApplicantsRoute
+  '/employer/jobs/$id/edit': typeof EmployerJobsIdEditRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -117,10 +172,16 @@ export interface FileRouteTypes {
     | '/job-seeker'
     | '/login'
     | '/register'
+    | '/employer/company'
+    | '/employer/dashboard'
     | '/job-seeker/applications'
     | '/job-seeker/dashboard'
     | '/jobs/$id'
     | '/jobs/'
+    | '/employer/jobs/create'
+    | '/employer/jobs/'
+    | '/employer/jobs/$id/applicants'
+    | '/employer/jobs/$id/edit'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -129,10 +190,16 @@ export interface FileRouteTypes {
     | '/job-seeker'
     | '/login'
     | '/register'
+    | '/employer/company'
+    | '/employer/dashboard'
     | '/job-seeker/applications'
     | '/job-seeker/dashboard'
     | '/jobs/$id'
     | '/jobs'
+    | '/employer/jobs/create'
+    | '/employer/jobs'
+    | '/employer/jobs/$id/applicants'
+    | '/employer/jobs/$id/edit'
   id:
     | '__root__'
     | '/'
@@ -141,16 +208,22 @@ export interface FileRouteTypes {
     | '/job-seeker'
     | '/login'
     | '/register'
+    | '/employer/company'
+    | '/employer/dashboard'
     | '/job-seeker/applications'
     | '/job-seeker/dashboard'
     | '/jobs/$id'
     | '/jobs/'
+    | '/employer/jobs/create'
+    | '/employer/jobs/'
+    | '/employer/jobs/$id/applicants'
+    | '/employer/jobs/$id/edit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRoute
-  EmployerRoute: typeof EmployerRoute
+  EmployerRoute: typeof EmployerRouteWithChildren
   JobSeekerRoute: typeof JobSeekerRouteWithChildren
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
@@ -202,6 +275,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RegisterRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/employer/company': {
+      id: '/employer/company'
+      path: '/company'
+      fullPath: '/employer/company'
+      preLoaderRoute: typeof EmployerCompanyRouteImport
+      parentRoute: typeof EmployerRoute
+    }
+    '/employer/dashboard': {
+      id: '/employer/dashboard'
+      path: '/dashboard'
+      fullPath: '/employer/dashboard'
+      preLoaderRoute: typeof EmployerDashboardRouteImport
+      parentRoute: typeof EmployerRoute
+    }
     '/job-seeker/applications': {
       id: '/job-seeker/applications'
       path: '/applications'
@@ -230,8 +317,58 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof JobsIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/employer/jobs/': {
+      id: '/employer/jobs/'
+      path: '/jobs'
+      fullPath: '/employer/jobs/'
+      preLoaderRoute: typeof EmployerJobsIndexRouteImport
+      parentRoute: typeof EmployerRoute
+    }
+    '/employer/jobs/create': {
+      id: '/employer/jobs/create'
+      path: '/jobs/create'
+      fullPath: '/employer/jobs/create'
+      preLoaderRoute: typeof EmployerJobsCreateRouteImport
+      parentRoute: typeof EmployerRoute
+    }
+    '/employer/jobs/$id/applicants': {
+      id: '/employer/jobs/$id/applicants'
+      path: '/jobs/$id/applicants'
+      fullPath: '/employer/jobs/$id/applicants'
+      preLoaderRoute: typeof EmployerJobsIdApplicantsRouteImport
+      parentRoute: typeof EmployerRoute
+    }
+    '/employer/jobs/$id/edit': {
+      id: '/employer/jobs/$id/edit'
+      path: '/jobs/$id/edit'
+      fullPath: '/employer/jobs/$id/edit'
+      preLoaderRoute: typeof EmployerJobsIdEditRouteImport
+      parentRoute: typeof EmployerRoute
+    }
   }
 }
+
+interface EmployerRouteChildren {
+  EmployerCompanyRoute: typeof EmployerCompanyRoute
+  EmployerDashboardRoute: typeof EmployerDashboardRoute
+  EmployerJobsCreateRoute: typeof EmployerJobsCreateRoute
+  EmployerJobsIndexRoute: typeof EmployerJobsIndexRoute
+  EmployerJobsIdApplicantsRoute: typeof EmployerJobsIdApplicantsRoute
+  EmployerJobsIdEditRoute: typeof EmployerJobsIdEditRoute
+}
+
+const EmployerRouteChildren: EmployerRouteChildren = {
+  EmployerCompanyRoute: EmployerCompanyRoute,
+  EmployerDashboardRoute: EmployerDashboardRoute,
+  EmployerJobsCreateRoute: EmployerJobsCreateRoute,
+  EmployerJobsIndexRoute: EmployerJobsIndexRoute,
+  EmployerJobsIdApplicantsRoute: EmployerJobsIdApplicantsRoute,
+  EmployerJobsIdEditRoute: EmployerJobsIdEditRoute,
+}
+
+const EmployerRouteWithChildren = EmployerRoute._addFileChildren(
+  EmployerRouteChildren,
+)
 
 interface JobSeekerRouteChildren {
   JobSeekerApplicationsRoute: typeof JobSeekerApplicationsRoute
@@ -250,7 +387,7 @@ const JobSeekerRouteWithChildren = JobSeekerRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
-  EmployerRoute: EmployerRoute,
+  EmployerRoute: EmployerRouteWithChildren,
   JobSeekerRoute: JobSeekerRouteWithChildren,
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,

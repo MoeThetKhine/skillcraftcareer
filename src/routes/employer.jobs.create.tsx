@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { createJob } from "@/lib/api/jobs.functions";
 import { JobForm, emptyJobForm, toJobInput, type JobFormValues } from "@/components/employer/JobForm";
 import { PageHeader } from "@/components/shared";
+import { friendlyError as friendly } from "@/lib/utils";
 
 export const Route = createFileRoute("/employer/jobs/create")({
   head: () => ({ meta: [{ title: "Create Job — SkillCraft" }] }),
@@ -33,13 +34,4 @@ function CreateJobPage() {
       <JobForm initial={emptyJobForm} submitLabel="Publish job" busy={mutation.isPending} onSubmit={(v) => mutation.mutate(v)} />
     </div>
   );
-}
-
-export function friendly(message: string) {
-  try {
-    const parsed = JSON.parse(message) as { message?: string }[];
-    return parsed[0]?.message ?? message;
-  } catch {
-    return message;
-  }
 }
