@@ -10,6 +10,8 @@ SkillCraft connects:
 * **Employers** → Create companies, post jobs, manage applicants, and update application status.
 * **Admins** → Manage users, jobs, companies, applications, and platform activity.
 
+* Web Link - https://skillcraftcareer.lovable.app/
+
 The system must use a real backend architecture and a relational SQL Server database. Do **not** build this as a static frontend-only project.
 
 # 1. Project Concept
